@@ -7,7 +7,7 @@
 #define cross_size 5
 
 RandomMapEigen::RandomMapEigen(int size) : size(size), map(size, size, 3) {
-    map.setConstant(255); // 初始化为白色
+	map.setConstant(255); // initialize the map with white color
     GenerateObstacle();
 }
 
@@ -25,25 +25,25 @@ Eigen::Tensor<uint8_t, 3>& RandomMapEigen::GetMap() {
 
 void RandomMapEigen::Draw_the_endpoints(Eigen::Tensor<uint8_t, 3>& map, const Point start_point, const std::vector<Point>& end_points) {
     try {
-        // 将 Eigen::Tensor 转换为 OpenCV 的 cv::Mat
+		// transform the Eigen::Tensor to cv::Mat
         cv::Mat cv_map(map.dimension(0), map.dimension(1), CV_8UC3, map.data());
 
-        // 检查图像矩阵的大小
+		// check if the map is empty
         if (cv_map.empty()) {
-            throw std::runtime_error("转换后的图像矩阵为空");
+			throw std::runtime_error("empty map");
         }
 
-        // 绘制起点
-        cv::line(cv_map, cv::Point(start_point.x - cross_size, start_point.y), cv::Point(start_point.x + cross_size, start_point.y), cv::Scalar(0, 0, 255), 1); // 红色横线
-        cv::line(cv_map, cv::Point(start_point.x, start_point.y - cross_size), cv::Point(start_point.x, start_point.y + cross_size), cv::Scalar(0, 0, 255), 1); // 红色竖线
+		// draw the start point
+		cv::line(cv_map, cv::Point(start_point.x - cross_size, start_point.y), cv::Point(start_point.x + cross_size, start_point.y), cv::Scalar(0, 0, 255), 1); // red horizontal line
+		cv::line(cv_map, cv::Point(start_point.x, start_point.y - cross_size), cv::Point(start_point.x, start_point.y + cross_size), cv::Scalar(0, 0, 255), 1); // red vertical line
 
-        // 绘制终点
+		// draw the endpoints
         for (const auto& end_point : end_points) {
-            cv::line(cv_map, cv::Point(end_point.x - cross_size, end_point.y), cv::Point(end_point.x + cross_size, end_point.y), cv::Scalar(255, 0, 0), 1); // 蓝色横线
-            cv::line(cv_map, cv::Point(end_point.x, end_point.y - cross_size), cv::Point(end_point.x, end_point.y + cross_size), cv::Scalar(255, 0, 0), 1); // 蓝色竖线
+			cv::line(cv_map, cv::Point(end_point.x - cross_size, end_point.y), cv::Point(end_point.x + cross_size, end_point.y), cv::Scalar(255, 0, 0), 1); // blue horizontal line
+			cv::line(cv_map, cv::Point(end_point.x, end_point.y - cross_size), cv::Point(end_point.x, end_point.y + cross_size), cv::Scalar(255, 0, 0), 1); // blue vertical line
         }
 
-        // 显示图像
+		// show the map
         cv::imshow("Map", cv_map);
         cv::waitKey(0);
     }
@@ -90,7 +90,7 @@ void RandomMapEigen::AddCircleObstacle(const Point& center, int radius) {
         for (int y = 0; y < size; ++y) {
             if (std::pow(x - center.x, 2) + std::pow(y - center.y, 2) <= std::pow(radius, 2)) {
                 for (int c = 0; c < 3; ++c) {
-                    map(x, y, c) = 128; // 灰色
+					map(x, y, c) = 128; // gray
                 }
                 obstacle_points.emplace_back(x, y);
             }
@@ -104,7 +104,7 @@ void RandomMapEigen::AddSquareObstacle(const Point& center, int width) {
         for (int y = center.y - half_width; y < center.y + half_width; ++y) {
             if (IsValidCoordinate(x, y)) {
                 for (int c = 0; c < 3; ++c) {
-                    map(x, y, c) = 128; // 灰色
+					map(x, y, c) = 128; // gray
                 }
                 obstacle_points.emplace_back(x, y);
             }
@@ -117,7 +117,7 @@ void RandomMapEigen::AddRectangleObstacle(const Point& top_left, int width, int 
         for (int y = top_left.y; y < top_left.y + height; ++y) {
             if (IsValidCoordinate(x, y)) {
                 for (int c = 0; c < 3; ++c) {
-                    map(x, y, c) = 128; // 灰色
+					map(x, y, c) = 128; // gray
                 }
                 obstacle_points.emplace_back(x, y);
             }

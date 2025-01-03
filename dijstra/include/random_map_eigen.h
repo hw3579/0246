@@ -20,7 +20,7 @@ public:
 private:
     int size;
     std::vector<Point> obstacle_points;
-    Eigen::Tensor<uint8_t, 3> map; // ÈýÍ¨µÀÍ¼Ïñ
+	Eigen::Tensor<uint8_t, 3> map; // 3 channel image
 
     void AddCircleObstacle(const Point& center, int radius);
     void AddSquareObstacle(const Point& center, int width);

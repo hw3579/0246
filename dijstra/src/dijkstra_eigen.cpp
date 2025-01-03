@@ -71,12 +71,12 @@ std::vector<Point> DijkstraEigen::FindShortestPath(Point end_point, std::vector<
     for (int x = 0; x < rows; ++x) {
         for (int y = 0; y < cols; ++y) {
             if (map(x, y, 0) == 128) {
-                image.at<cv::Vec3b>(y, x) = cv::Vec3b(128, 128, 128); // 灰色障碍物
+				image.at<cv::Vec3b>(y, x) = cv::Vec3b(128, 128, 128); // gray color with obstacles
             }
         }
     }
 
-	// 绘制起点和终点的十字
+	// draw the start point and end points
 
 	Drawline(image, start_point, end_points);
 
@@ -102,10 +102,10 @@ std::vector<Point> DijkstraEigen::FindShortestPath(Point end_point, std::vector<
         }
 
         if (visualizing_search) {
-            image.at<cv::Vec3b>(current_point.y, current_point.x) = cv::Vec3b(0, 255, 0); // 灰绿色标记
+			image.at<cv::Vec3b>(current_point.y, current_point.x) = cv::Vec3b(0, 255, 0); // green color in searched area
             //cv::flip(image, image, 0);
             counter++;
-            if (counter % 1000 == 0) { // 每弹出10次才显示
+			if (counter % 1000 == 0) { // every 1000 iterations
                 cv::Mat rotated_image;
 				cv::flip(image, rotated_image, 0);
                 cv::imshow("Dijkstra Visualization - Find path", rotated_image);
@@ -145,7 +145,7 @@ void DijkstraEigen::Visualize(const std::vector<Point>& path, cv::Mat& image) {
             for (int dy = -half_size; dy < half_size; ++dy) {
                 int nx = point.x + dx, ny = point.y + dy;
                 if (nx >= 0 && nx < rows && ny >= 0 && ny < cols) {
-                    image.at<cv::Vec3b>(nx, ny) = cv::Vec3b(0, 0, 255);  // 标记路径为红色
+					image.at<cv::Vec3b>(nx, ny) = cv::Vec3b(0, 0, 255);  // path in red color
                 }
             }
         }
@@ -156,8 +156,7 @@ void DijkstraEigen::Visualize(const std::vector<Point>& path, cv::Mat& image) {
 			cv::waitKey(1);
 		}
     }
-    //保存图像
-    // 生成带有时间戳的文件名
+	// save the image with timestamp
     std::string filename = "./img/Visualization" + GetTimestamp() + ".png";
     cv::imwrite(filename, rotated_image);
     cv::waitKey(0);
@@ -171,16 +170,18 @@ void DijkstraEigen::AddCollisionVolume(const Point& robot_position) {
     for (int x = x_center - half_size; x < x_center + half_size; ++x) {
         for (int y = y_center - half_size; y < y_center + half_size; ++y) {
             if (x >= 0 && x < rows && y >= 0 && y < cols) {
-                map(x, y, 0) = 128;  // 标记为障碍物
+				map(x, y, 0) = 128;  //  label the collision volume with gray color
             }
         }
     }
 }
-// 获取当前时间戳
+// get the current timestamp
 std::string GetTimestamp() {
     std::time_t now = std::time(nullptr);
     char buf[20];
-    std::strftime(buf, sizeof(buf), "%Y%m%d%H%M%S", std::localtime(&now));
+    struct tm timeinfo;
+    localtime_s(&timeinfo, &now);
+    std::strftime(buf, sizeof(buf), "%Y%m%d%H%M%S", &timeinfo);
     return std::string(buf);
 }
 
