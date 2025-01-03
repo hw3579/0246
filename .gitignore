@@ -1,0 +1,11 @@
+**/build/
+**/out/
+
+# 忽略pycache
+
+**/__pycache__/
+
+# 忽略pyc
+
+**/.vs/
+**/.vsc/
