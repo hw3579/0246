@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <Eigen/Dense>
-#include "Point.h"
+#include "point.h"
 #include <opencv2/opencv.hpp>
 #include <unsupported/Eigen/CXX11/Tensor>
 

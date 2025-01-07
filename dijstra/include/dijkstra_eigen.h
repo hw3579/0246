@@ -7,7 +7,7 @@
 #include <set>
 #include <Eigen/Dense>
 #include <opencv2/opencv.hpp>
-#include "Point.h"
+#include "point.h"
 #include <ctime>
 #include <string>
 #include <unsupported/Eigen/CXX11/Tensor>
