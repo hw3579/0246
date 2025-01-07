@@ -328,7 +328,11 @@ std::string GetTimestamp() {
     std::time_t now = std::time(nullptr);
     char buf[20];
     struct tm timeinfo;
+#ifdef _WIN32
     localtime_s(&timeinfo, &now);
+#else
+	localtime_r(&now, &timeinfo);
+#endif
     std::strftime(buf, sizeof(buf), "%Y%m%d%H%M%S", &timeinfo);
     return std::string(buf);
 }

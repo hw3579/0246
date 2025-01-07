@@ -27,13 +27,13 @@ struct RobotSize {
 
 class DijkstraEigen {
 public:
-    DijkstraEigen::DijkstraEigen(Eigen::Tensor<uint8_t, 3>& map,
+    DijkstraEigen(Eigen::Tensor<uint8_t, 3>& map,
         const Point& start_point,
         const Point& end_point,
         int robot_size = 10,
         bool visualizing_search = true);
 
-    DijkstraEigen::DijkstraEigen(Eigen::Tensor<uint8_t, 3>& map,
+    DijkstraEigen(Eigen::Tensor<uint8_t, 3>& map,
         const Point& start_point,
         const Point& end_point,
 		RobotSize& structure_robot_size,
@@ -45,7 +45,7 @@ public:
     void Visualize(const std::vector<Point>& path, cv::Mat& image, RobotSize& robot_size);
     bool IsValidPoint(const Point& point);
     bool IsValidPoint(const Point& point, RobotSize& robot_size);
-	void DijkstraEigen::ExploreAllPoints();
+	void ExploreAllPoints();
 
 private:
     Eigen::Tensor<uint8_t, 3>& map;
