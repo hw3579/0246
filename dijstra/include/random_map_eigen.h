@@ -16,7 +16,7 @@ public:
     const std::vector<Point>& GetObstaclePoints() const;
     Eigen::Tensor<uint8_t, 3>& GetMap();
     void Draw_the_endpoints(Eigen::Tensor<uint8_t, 3>& map, const Point start_point, const std::vector<Point>& end_points);
-
+    void RenderRobotOnMap(Eigen::Tensor<uint8_t, 3>& map, const Point& robot_position, int robot_size);
 private:
     int size;
     std::vector<Point> obstacle_points;

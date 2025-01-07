@@ -2,7 +2,7 @@
 #include <cmath>
 #include <Eigen/Dense>
 #include <algorithm>
-#include <opencv2/core/eigen.hpp>
+
 
 #define cross_size 5
 
@@ -127,4 +127,22 @@ void RandomMapEigen::AddRectangleObstacle(const Point& top_left, int width, int 
 
 bool RandomMapEigen::IsValidCoordinate(int x, int y) const {
     return x >= 0 && x < size && y >= 0 && y < size;
+}
+
+
+void RandomMapEigen::RenderRobotOnMap(Eigen::Tensor<uint8_t, 3>& map, const Point& robot_position, int robot_size) {
+    int half_size = robot_size;
+
+    for (int dx = -half_size; dx <= half_size; ++dx) {
+        for (int dy = -half_size; dy <= half_size; ++dy) {
+            int nx = robot_position.x + dx;
+            int ny = robot_position.y + dy;
+
+            if (nx >= 0 && nx < map.dimension(1) && ny >= 0 && ny < map.dimension(0)) {
+                for (int c = 0; c < 3; ++c) {
+                    map(nx, ny, c) = 255; // white color
+                }
+            }
+        }
+    }
 }

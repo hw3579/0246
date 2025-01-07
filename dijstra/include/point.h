@@ -13,6 +13,14 @@ public:
         return (x < other.x) || (x == other.x && y < other.y);
     }
 
+	bool operator>(const Point& other) const {
+		return (x > other.x) || (x == other.x && y > other.y);
+	}
+
+	Point operator-(const Point& other) const {
+		return Point(x - other.x, y - other.y);
+	}
+
     // 重载加法运算符
     Point operator+(const Point& other) const {
         return Point(x + other.x, y + other.y);
