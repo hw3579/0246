@@ -5,7 +5,7 @@
 #include "dijkstra_eigen.h"
 #include "main.h"
 
-#define is_include_tank false
+#define is_include_tank true
 
 
 

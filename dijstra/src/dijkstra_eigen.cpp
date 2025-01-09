@@ -267,7 +267,7 @@ void DijkstraEigen::Visualize(const std::vector<Point>& path, cv::Mat& image) {
 
     for (const auto& point : path) {
         //draw the center point in black
-        image.at<cv::Vec3b>(image.rows - point.y - 1, point.x) = cv::Vec3b(0, 0, 0);  // center point in blue
+        image.at<cv::Vec3b>(image.rows - point.y - 1, point.x) = cv::Vec3b(0, 0, 0);  // center point in black
     }
 	// save the image with timestamp
     std::string filename = "./img/Visualization" + GetTimestamp() + ".png";
@@ -310,10 +310,10 @@ void DijkstraEigen::Visualize(const std::vector<Point>& path, cv::Mat& image, Ro
 
     }
 
-    for (const auto& point : path) {
-        //draw the center point in black
-        image.at<cv::Vec3b>(image.rows - point.y - 1, point.x) = cv::Vec3b(0, 0, 0);  // center point in blue
-    }
+    //for (const auto& point : path) {
+    //    //draw the center point in black
+    //    image.at<cv::Vec3b>(image.rows - point.y - 1, point.x) = cv::Vec3b(0, 0, 0);  // center point in black
+    //}
     // save the image with timestamp
     std::string filename = "./img/Visualization" + GetTimestamp() + ".png";
 	cv::imshow("Dijkstra Visualization", image);
